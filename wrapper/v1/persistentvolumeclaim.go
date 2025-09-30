@@ -11,7 +11,7 @@ type PersistentVolumeClaimWrapper struct {
 	*corev1.PersistentVolumeClaim
 }
 
-var _ model.KubeResource = &PersistentVolumeClaimWrapper{}
+var _ model.Resource = &PersistentVolumeClaimWrapper{}
 
 func (p *PersistentVolumeClaimWrapper) Validate() error { return nil }
 func (p *PersistentVolumeClaimWrapper) Marshal() ([]byte, error) {

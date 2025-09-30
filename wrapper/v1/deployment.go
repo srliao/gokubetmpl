@@ -12,7 +12,7 @@ type DeploymentWrapper struct {
 	*appsv1.Deployment
 }
 
-var _ model.KubeResource = &DeploymentWrapper{}
+var _ model.Resource = &DeploymentWrapper{}
 var _ model.Annotatable[*DeploymentWrapper] = &DeploymentWrapper{}
 
 func (d *DeploymentWrapper) Validate() error { return nil }

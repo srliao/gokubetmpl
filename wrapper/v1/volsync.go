@@ -14,8 +14,8 @@ type ReplicationSourceWrapper struct {
 	*vs1alpha1.ReplicationSource
 }
 
-var _ model.KubeResource = &ReplicationDestinationWrapper{}
-var _ model.KubeResource = &ReplicationSourceWrapper{}
+var _ model.Resource = &ReplicationDestinationWrapper{}
+var _ model.Resource = &ReplicationSourceWrapper{}
 
 func (r *ReplicationDestinationWrapper) Validate() error { return nil }
 func (r *ReplicationDestinationWrapper) Marshal() ([]byte, error) {

@@ -10,7 +10,7 @@ type ExternalSecretWrapper struct {
 	*esv1beta1.ExternalSecret
 }
 
-var _ model.KubeResource = &ExternalSecretWrapper{}
+var _ model.Resource = &ExternalSecretWrapper{}
 
 func (e *ExternalSecretWrapper) Validate() error { return nil }
 func (e *ExternalSecretWrapper) Marshal() ([]byte, error) {

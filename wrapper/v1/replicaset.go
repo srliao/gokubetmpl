@@ -10,7 +10,7 @@ type ReplicaSetWrapper struct {
 	*appsv1.ReplicaSet
 }
 
-var _ model.KubeResource = &ReplicaSetWrapper{}
+var _ model.Resource = &ReplicaSetWrapper{}
 
 func (r *ReplicaSetWrapper) Validate() error { return nil }
 func (r *ReplicaSetWrapper) Marshal() ([]byte, error) {

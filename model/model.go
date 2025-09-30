@@ -2,7 +2,7 @@ package model
 
 import "sigs.k8s.io/controller-runtime/pkg/client"
 
-type KubeResource interface {
+type Resource interface {
 	client.Object
 	Validate() error
 	Marshal() ([]byte, error)

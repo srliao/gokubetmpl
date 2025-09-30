@@ -1,6 +1,7 @@
 package v1
 
 import (
+	"github.com/srliao/gokubetmpl/model"
 	corev1 "k8s.io/api/core/v1"
 	"sigs.k8s.io/yaml"
 )
@@ -8,6 +9,8 @@ import (
 type ConfigMapWrapper struct {
 	*corev1.ConfigMap
 }
+
+var _ model.Resource = &ConfigMapWrapper{}
 
 func (c *ConfigMapWrapper) Validate() error          { return nil }
 func (c *ConfigMapWrapper) Marshal() ([]byte, error) { return yaml.Marshal(c.ConfigMap) }

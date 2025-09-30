@@ -13,7 +13,7 @@ type FluxKustomizationWrapper struct {
 	subpath string
 }
 
-var _ model.KubeResource = &FluxKustomizationWrapper{}
+var _ model.Resource = &FluxKustomizationWrapper{}
 
 func (f *FluxKustomizationWrapper) Marshal() ([]byte, error) {
 	return util.MarshalYamlRemoveEmpty(f.Kustomization)

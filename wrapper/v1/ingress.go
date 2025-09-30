@@ -12,7 +12,7 @@ type IngressWrapper struct {
 	*networkingv1.Ingress
 }
 
-var _ model.KubeResource = &IngressWrapper{}
+var _ model.Resource = &IngressWrapper{}
 var _ model.Annotatable[*IngressWrapper] = &IngressWrapper{}
 
 func (i *IngressWrapper) Validate() error          { return nil }

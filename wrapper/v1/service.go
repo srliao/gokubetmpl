@@ -11,7 +11,7 @@ type ServiceWrapper struct {
 	*corev1.Service
 }
 
-var _ model.KubeResource = &ServiceWrapper{}
+var _ model.Resource = &ServiceWrapper{}
 
 func (s *ServiceWrapper) Validate() error          { return nil }
 func (s *ServiceWrapper) Marshal() ([]byte, error) { return yaml.Marshal(s.Service) }
