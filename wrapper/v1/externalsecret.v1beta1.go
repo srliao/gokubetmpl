@@ -1,22 +1,24 @@
 package v1
 
 import (
+	"maps"
+
 	esv1beta1 "github.com/external-secrets/external-secrets/apis/externalsecrets/v1beta1"
 	"github.com/srliao/gokubetmpl/model"
 	"github.com/srliao/gokubetmpl/util"
 )
 
-type ExternalSecretWrapper struct {
+type ExternalSecretWrapperV1Beta1 struct {
 	*esv1beta1.ExternalSecret
 }
 
-var _ model.Resource = &ExternalSecretWrapper{}
+var _ model.Resource = &ExternalSecretWrapperV1Beta1{}
 
-func (e *ExternalSecretWrapper) Validate() error { return nil }
-func (e *ExternalSecretWrapper) Marshal() ([]byte, error) {
+func (e *ExternalSecretWrapperV1Beta1) Validate() error { return nil }
+func (e *ExternalSecretWrapperV1Beta1) Marshal() ([]byte, error) {
 	return util.MarshalYamlRemoveEmpty(e.ExternalSecret)
 }
-func (e *ExternalSecretWrapper) init() {
+func (e *ExternalSecretWrapperV1Beta1) init() {
 	if e.Spec.Target.Template == nil {
 		e.Spec.Target.Template = &esv1beta1.ExternalSecretTemplate{
 			EngineVersion: esv1beta1.TemplateEngineV2,
@@ -27,21 +29,19 @@ func (e *ExternalSecretWrapper) init() {
 	}
 }
 
-func (e *ExternalSecretWrapper) AddDataToTemplate(name, from string) *ExternalSecretWrapper {
+func (e *ExternalSecretWrapperV1Beta1) AddDataToTemplate(name, from string) *ExternalSecretWrapperV1Beta1 {
 	e.init()
 	e.Spec.Target.Template.Data[name] = from
 	return e
 }
 
-func (e *ExternalSecretWrapper) AddMapDataToTemplate(d map[string]string) *ExternalSecretWrapper {
+func (e *ExternalSecretWrapperV1Beta1) AddMapDataToTemplate(d map[string]string) *ExternalSecretWrapperV1Beta1 {
 	e.init()
-	for k, v := range d {
-		e.Spec.Target.Template.Data[k] = v
-	}
+	maps.Copy(e.Spec.Target.Template.Data, d)
 	return e
 }
 
-func (e *ExternalSecretWrapper) AddExternalDataFromKeyExtract(key string) *ExternalSecretWrapper {
+func (e *ExternalSecretWrapperV1Beta1) AddExternalDataFromKeyExtract(key string) *ExternalSecretWrapperV1Beta1 {
 	e.Spec.DataFrom = append(e.Spec.DataFrom, esv1beta1.ExternalSecretDataFromRemoteRef{
 		Extract: &esv1beta1.ExternalSecretDataRemoteRef{
 			Key: key,
