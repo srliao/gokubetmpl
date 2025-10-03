@@ -8,6 +8,11 @@ type Resource interface {
 	Marshal() ([]byte, error)
 }
 
+type File interface {
+	Name() string
+	Content() []byte
+}
+
 type Annotatable[K any] interface {
 	MergeAnnotations(annotations map[string]string) K
 	WithAnnotations(annotations map[string]string) K
