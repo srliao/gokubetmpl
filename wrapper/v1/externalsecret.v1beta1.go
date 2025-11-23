@@ -18,6 +18,17 @@ func (e *ExternalSecretWrapperV1Beta1) Validate() error { return nil }
 func (e *ExternalSecretWrapperV1Beta1) Marshal() ([]byte, error) {
 	return util.MarshalYamlRemoveEmpty(e.ExternalSecret)
 }
+func (e *ExternalSecretWrapperV1Beta1) MergeAnnotations(annotations map[string]string) *ExternalSecretWrapperV1Beta1 {
+	if e.Annotations == nil {
+		e.Annotations = make(map[string]string)
+	}
+	maps.Copy(e.Annotations, annotations)
+	return e
+}
+func (e *ExternalSecretWrapperV1Beta1) WithAnnotations(annotations map[string]string) *ExternalSecretWrapperV1Beta1 {
+	e.Annotations = annotations
+	return e
+}
 func (e *ExternalSecretWrapperV1Beta1) init() {
 	if e.Spec.Target.Template == nil {
 		e.Spec.Target.Template = &esv1beta1.ExternalSecretTemplate{
